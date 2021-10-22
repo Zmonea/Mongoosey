@@ -13,7 +13,7 @@ const sessionsController = require('./controllers/sessions.js')
 const userController = require('./controllers/controller.js')
 
 const Gear = require('./models/gear.js');
-const prdSeed = require('./models/gearSeed.js')
+const prdseed = require('./models/gearseed.js')
 
 //MiddleWare
 app.use(express.urlencoded({extended: true}));
@@ -131,7 +131,7 @@ app.get('/seed', (req, res) => {
     
     Gear.deleteMany({}, ()=> {});
     
-    Gear.create(prdSeed, (error, data) => {
+    Gear.create(prdseed, (error, data) => {
       error ? res.status(400).json(error) : res.status(200).redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
     });
   })
