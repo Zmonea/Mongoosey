@@ -11,18 +11,18 @@
         <h1>Edit Product</h1>
         <form action="/gear/<%=product.id%>?_method=PUT"" method="POST">
             Name: <input type="text" name="name" value="<%=product.name %>" /><br/>
-            Description: <input type="textarea" name="description" value="<%=product.description %>" /><br/>
+            Description: <input id="textWrap"type="textarea" name="description" value="<%=product.description %>" /><br/>
             Image: <input type="text" name="img" value="<%=product.img %>"/><br/>
             Price: <input type="number" name="price" value="<%=product.price %>" /><br/>
             Qty: <input type="number" name="qty" value="<%=product.qty %>"/><br/>
-            Qty: <input type="number" name="qty" value="<%=product.qty %>"/><br/>
+            
             
 
            
             <input type="submit" name="" value="Save Changes" id="save"/>
         </form>
         <nav>
-            <a href="/gear/">Back</a>
+            <a href="/gear/<%=product.id%>">Back</a>
         </nav>
     </body>
 </html>

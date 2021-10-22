@@ -93,7 +93,6 @@ app.post('/gear/', (req, res)=>{
 //index
 app.get('/gear', (req, res)=>{
     Gear.find({}, (error, products)=>{
-        console.log(req.params.id);
         res.render('index.ejs', {
             product: products,
             index: req.params
@@ -119,16 +118,29 @@ app.get('/gear/:id/edit', (req, res)=>{
     });
 });
 
+app.put('/gear/:id', (req, res)=>{
+  
+    Gear.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err, updatedModel)=>{
+        res.redirect('/gear');
+        
+    });
+})
+
 //seed
 app.get('/seed', (req, res) => {
     
     Gear.deleteMany({}, ()=> {});
     
     Gear.create(prdSeed, (error, data) => {
-      // you can also change the second part to res.status(200).redirect('/products') or wherever you want to go.
       error ? res.status(400).json(error) : res.status(200).redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
     });
   })
+
+  app.delete('/gear/:id', (req, res)=>{
+    Gear.findByIdAndRemove(req.params.id, (err, data)=>{
+        res.redirect('/gear');
+    });
+});
 
 
 //___________________

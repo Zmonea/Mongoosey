@@ -94,9 +94,14 @@ ul{
    width: 200px;
    height: 100px;
    max-width: 400px;
-   max-height: 150px;
-   resize: horizontal;
+   max-height: 400px;
+   white-space: pre-wrap !important;
+   word-wrap: break-word !important;
    
+   
+ }
+ #textWrap{
+   overflow-wrap: break-word;
  }
  #buy {
     background-color: aqua;
