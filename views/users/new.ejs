@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/normalize.css">
+    <link rel="stylesheet"  type="text/css" href="/skeleton.css">
+    <link rel="stylesheet"  type="text/css" href="/app.css">
+  </head>
+  <body>
+    <nav>
+      
+    </nav>
+    <div class="container">
+      <h1>New User</h1>
+      <form action="/users" method="POST">
+        <label for="name">User Name:</label>
+        <input type="text" name="username" required/>
+        <label for="color">Password:</label>
+        <input type="password" name="password" />
+        <br>
+        <input type="submit" value="Submit">
+      <form>
+    </div>
+    <a id="logIn" href="/sessions/new">Already have an account?</a>
+    
+  </body>
+</html>

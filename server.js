@@ -7,6 +7,34 @@ const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
+const session = require('express-session')
+
+const sessionsController = require('./controllers/sessions.js')
+const userController = require('./controllers/controller.js')
+
+const Gear = require('./models/gear.js');
+const prdSeed = require('./models/gearSeed.js')
+
+//MiddleWare
+app.use(express.urlencoded({extended: true}));
+app.use(express.static('public'))
+app.use(methodOverride('_method'))
+
+app.use(
+    session({
+      secret: process.env.SECRET, 
+      resave: false, 
+      saveUninitialized: false 
+    })
+)
+
+app.use('/sessions', sessionsController)
+app.use('/users', userController)
+
+app.get('/gear/new', (req, res)=>{
+    res.render('new.ejs');
+});
+
 //___________________
 //Port
 //___________________
@@ -18,6 +46,7 @@ const PORT = process.env.PORT || 3003;
 //___________________
 // How to connect to the database either via heroku or locally
 const MONGODB_URI = process.env.MONGODB_URI;
+
 
 // Connect to Mongo &
 // Fix Depreciation Warnings from Mongoose
@@ -48,9 +77,59 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 // Routes
 //___________________
 //localhost:3000
-app.get('/' , (req, res) => {
-  res.send('Hello World!');
+// app.get('/gear' , (req, res) => {
+//   res.send('Hello World!');
+// });
+app.post('/gear/', (req, res)=>{
+
+    Gear.create(req.body, (error, products) => {
+
+        res.redirect('/gear/'+ products._id);
+        
+    })
+    
 });
+
+//index
+app.get('/gear', (req, res)=>{
+    Gear.find({}, (error, products)=>{
+        console.log(req.params.id);
+        res.render('index.ejs', {
+            product: products,
+            index: req.params
+        });
+    });
+});
+
+//show 
+app.get('/gear/:id', (req, res)=>{
+    Gear.findById(req.params.id, (err, products)=>{
+        res.render('show.ejs', {
+            product: products
+        });
+    });
+});
+
+//edit
+app.get('/gear/:id/edit', (req, res)=>{
+    Gear.findById(req.params.id, (err, products)=>{
+        res.render('edit.ejs', {
+            product: products
+        });
+    });
+});
+
+//seed
+app.get('/seed', (req, res) => {
+    
+    Gear.deleteMany({}, ()=> {});
+    
+    Gear.create(prdSeed, (error, data) => {
+      // you can also change the second part to res.status(200).redirect('/products') or wherever you want to go.
+      error ? res.status(400).json(error) : res.status(200).redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
+    });
+  })
+
 
 //___________________
 //Listener
