@@ -22,7 +22,7 @@
                     </a>
                     <li> <%=product[i].name; %> </li>
                     
-                    <li> Cost: $<%=product[i].price; %> </li>
+                    <li> Cost: <%=product[i].price; %> Gold Coins </li>
                     <li> In Stock: <%=product[i].qty; %> </li>
                     <% if(product[i].qty > 0){ %>
                         <form action="/gear/<%=product[i].id%>/buy?_method=PUT" method="POST">

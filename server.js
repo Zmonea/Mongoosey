@@ -132,9 +132,21 @@ app.get('/seed', (req, res) => {
     Gear.deleteMany({}, ()=> {});
     
     Gear.create(prdseed, (error, data) => {
-      error ? res.status(400).json(error) : res.status(200).redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
+      redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
     });
   })
+
+// Buy goods
+  app.put('/gear/:id/buy', (req, res)=>{
+    
+        
+
+    Gear.findByIdAndUpdate(req.params.id, {$inc: {qty:-1}}, {new:true}, (err, updatedModel)=>{
+        
+        res.redirect(`/gear/${req.params.id}`);
+        
+    });
+});
 
   app.delete('/gear/:id', (req, res)=>{
     Gear.findByIdAndRemove(req.params.id, (err, data)=>{

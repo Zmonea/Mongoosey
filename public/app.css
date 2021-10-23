@@ -8,7 +8,8 @@ ul{
     margin: 0;
     font-family: 'Oswald', sans-serif;
     font-size: 2.2em;
-    background-color: rgb(245, 237, 234); 
+    background-color: rgb(189, 120, 94); 
+    color: white;
  }
  a {
     display: inline-block;
@@ -28,6 +29,14 @@ ul{
     border: 1px solid #bbb;
     cursor: pointer;
     box-sizing: border-box;
+    color: white;
+ }
+ h1{
+    background-color: rgba(85, 85, 85, 0.445);
+    padding: 10px;
+    color: white;
+    font-weight: 400;
+    font-size: 7rem;
  }
  .productpicIndex{
      max-height: 250px;
@@ -41,11 +50,12 @@ ul{
     flex-direction: column;
     flex-basis: 30%;
     align-items: center;
-    background-color: rgba(246, 246, 246, 0.726);
+    background-color: rgba(0, 0, 0, 0.726);
     border-radius: 5px;
     height: 540px;
     margin-top: 5px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.418);
+    color: white;
     
  }
  .flexContainer{
@@ -63,8 +73,9 @@ ul{
  }
  .displayCard{
     padding: 20px;
-    background-color: rgb(219, 217, 217);
+    background-color: rgba(0, 0, 0, 0.726);
     width: 80%;
+    color: white;
  }
  .showFlex{
    display: flex;
@@ -91,7 +102,7 @@ ul{
  }
 
  input[type='textarea']{
-   width: 200px;
+   width: 280px;
    height: 100px;
    max-width: 400px;
    max-height: 400px;
@@ -108,10 +119,13 @@ ul{
  }
  #edit{
     background-color: white;
+    color: black;
  }
  #signIn{
     background-color: aqua;
+    color: black;
  }
  #logIn{
    background-color: rgb(102, 255, 0);
+   color: black;
  }
