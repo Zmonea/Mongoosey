@@ -20,6 +20,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 
+
+
+app.use('/sessions', sessionsController)
+app.use('/users', userController)
+
 app.use(
     session({
       secret: process.env.SECRET, 
@@ -27,9 +32,6 @@ app.use(
       saveUninitialized: false 
     })
 )
-
-app.use('/sessions', sessionsController)
-app.use('/users', userController)
 
 app.get('/gear/new', (req, res)=>{
     res.render('new.ejs');
@@ -80,6 +82,7 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 // app.get('/gear' , (req, res) => {
 //   res.send('Hello World!');
 // });
+
 app.post('/gear/', (req, res)=>{
 
     Gear.create(req.body, (error, products) => {
@@ -126,6 +129,16 @@ app.put('/gear/:id', (req, res)=>{
     });
 })
 
+//cart
+app.get('/cart', (req, res)=>{
+    Gear.find({}, (error, products)=>{
+        res.render('cart.ejs', {
+            product: products,
+            index: req.params
+        });
+    });
+});
+
 //seed
 app.get('/seed', (req, res) => {
     
@@ -153,6 +166,10 @@ app.get('/seed', (req, res) => {
         res.redirect('/gear');
     });
 });
+
+app.get('/', (req, res) => {
+    res.redirect('/gear')
+})
 
 
 //___________________

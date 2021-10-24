@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="/normalize.css">
+    <link rel="stylesheet"  type="text/css" href="/skeleton.css">
+    <link rel="stylesheet"  type="text/css" href="/app.css">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <h1>Welcome Weary Traveler, to Mongoosey's Emporium</h1>
+        <nav>
+            <a id="create" href="/gear/new">Sell a New Item</a>
+            <a id="logIn" href="/sessions/new">Log In</a>
+            <a id="signIn" href="/users/new">Sign Up</a>
+        </nav>
+
+        <ul class="flexContainer">
+            <% for(let i = 0; i < product.length; i++){ %>
+                <div class="indexCard">
+                    <a class="imgAnchor" href="/gear/<%=product[i]._id%>">
+                        <img class='productpicIndex' src=<%=product[i].img; %> />
+                    </a>
+                    <li> <%=product[i].name; %> </li>
+                    
+                    <li> Cost: <%=product[i].price; %> Gold Coins </li>
+                    <li> In Stock: <%=product[i].qty; %> </li>
+                    <% if(product[i].qty > 0){ %>
+                        <form action="/gear/<%=product[i].id%>/buy?_method=PUT" method="POST">
+                            <input id="buy" type="submit" value="buy" />
+                        </form>
+                   <% } else { %>
+                    <p>Out of Stock</p>
+                    <% } %>
+                    
+                    <div class="showFlexRow">
+                    <a id ="edit" href="/gear/<%=product[i]._id%>/edit">Edit Item</a>
+                    <form action="/gear/<%=product[i]._id%>?_method=DELETE" method="POST">
+                        <input id="delete"type="submit" value="DELETE" />
+                    </form>
+                    </div>
+                    
+                </div>
+                
+            <% } %>
+        
+        </ul>
+        
+    </body>
+</html>

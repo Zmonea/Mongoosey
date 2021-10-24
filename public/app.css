@@ -100,7 +100,9 @@ ul{
    background-color: rgb(235, 22, 2);
    color: white;
  }
-
+form{
+   color: black;
+}
  input[type='textarea']{
    width: 280px;
    height: 100px;
