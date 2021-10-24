@@ -8,22 +8,26 @@
         <title></title>
     </head>
     <body>
-        <h1>Welcome Weary Traveler, to Mongoosey's Emporium</h1>
+        <h1>Have you found everything that you need?</h1>
         <nav>
             <a id="create" href="/gear/new">Sell a New Item</a>
             <a id="logIn" href="/sessions/new">Log In</a>
             <a id="signIn" href="/users/new">Sign Up</a>
         </nav>
 
-        <ul class="flexContainer">
+        <ul class="flexContainerCart">
+            <%let total = 0; %>
+
             <% for(let i = 0; i < product.length; i++){ %>
-                <div class="indexCard">
-                    <a class="imgAnchor" href="/gear/<%=product[i]._id%>">
-                        <img class='productpicIndex' src=<%=product[i].img; %> />
+                <div class="cartCard">
+                    <a class="imgAnchorCart" href="/gear/<%=product[i]._id%>">
+                        <img class='productpicCart' src=<%=product[i].img; %> />
                     </a>
                     <li> <%=product[i].name; %> </li>
                     
                     <li> Cost: <%=product[i].price; %> Gold Coins </li>
+                    <%total += product[i].price %>
+
                     <li> In Stock: <%=product[i].qty; %> </li>
                     <% if(product[i].qty > 0){ %>
                         <form action="/gear/<%=product[i].id%>/buy?_method=PUT" method="POST">
@@ -32,7 +36,7 @@
                    <% } else { %>
                     <p>Out of Stock</p>
                     <% } %>
-                    
+
                     <div class="showFlexRow">
                     <a id ="edit" href="/gear/<%=product[i]._id%>/edit">Edit Item</a>
                     <form action="/gear/<%=product[i]._id%>?_method=DELETE" method="POST">
@@ -43,7 +47,7 @@
                 </div>
                 
             <% } %>
-        
+        <%= total %> 
         </ul>
         
     </body>
