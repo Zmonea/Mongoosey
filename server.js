@@ -14,6 +14,7 @@ const userController = require('./controllers/controller.js')
 
 const Gear = require('./models/gear.js');
 const prdseed = require('./models/gearseed.js')
+const Cart = require('./models/cart.js')
 
 //MiddleWare
 app.use(express.urlencoded({extended: true}));
@@ -103,6 +104,8 @@ app.get('/gear', (req, res)=>{
     });
 });
 
+
+
 //show 
 app.get('/gear/:id', (req, res)=>{
     Gear.findById(req.params.id, (err, products)=>{
@@ -131,10 +134,10 @@ app.put('/gear/:id', (req, res)=>{
 
 //cart
 app.get('/cart', (req, res)=>{
-    Gear.find({}, (error, products)=>{
+    Cart.find({}, (error, products)=>{
         res.render('cart.ejs', {
             product: products,
-            index: req.params
+            
         });
     });
 });
