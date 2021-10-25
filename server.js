@@ -142,18 +142,48 @@ app.get('/cart', (req, res)=>{
     });
 });
 
+app.post('/cart/', (req, res)=>{
+
+    Cart.create(req.body, (error, products) => {
+
+        res.redirect('/cart');
+        
+    })
+    
+});
+
+// app.put('/cart/buy', (req, res)=>{
+    
+        
+
+//     Cart.findByIdAndUpdate(req.params.id, {$inc: {qty:-1}}, {new:true}, (err, updatedModel)=>{
+        
+//         res.redirect(`/cart`);
+        
+//     });
+// })
+app.delete('/cart/:id', (req, res)=>{
+    Cart.findByIdAndRemove(req.params.id, (err, data)=>{
+        res.redirect('/cart');
+    });
+});
+
 //seed
 app.get('/seed', (req, res) => {
     
     Gear.deleteMany({}, ()=> {});
     
     Gear.create(prdseed, (error, data) => {
-      redirect('/gear'); //ternary statement that checks for status code, 200 being a redirect
+      
     });
+    Cart.create(prdseed, (error, data) => {
+        
+      });
+      redirect('/gear'); 
   })
 
 // Buy goods
-  app.put('/gear/:id/buy', (req, res)=>{
+app.put('/gear/:id/buy', (req, res)=>{
     
         
 
@@ -163,6 +193,30 @@ app.get('/seed', (req, res) => {
         
     });
 });
+
+  app.put('/gear/:id/addCart', (req, res)=>{
+    
+    
+
+    Gear.findByIdAndUpdate(req.params.id, {$inc: {qty:-1}}, {new:true}, (err, updatedModel)=>{
+        
+        console.log(updatedModel);
+
+        Cart.create(updatedModel, (error, data) => {
+        
+        });
+        
+    });
+
+    
+
+    
+
+  
+
+    res.redirect(`/gear`);
+});
+
 
   app.delete('/gear/:id', (req, res)=>{
     Gear.findByIdAndRemove(req.params.id, (err, data)=>{

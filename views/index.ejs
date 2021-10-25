@@ -11,6 +11,7 @@
         <h1>Welcome Weary Traveler, to Mongoosey's Emporium</h1>
         <nav>
             <a id="create" href="/gear/new">Sell a New Item</a>
+            <a id="create" href="/cart">Cart</a>
             <a id="logIn" href="/sessions/new">Log In</a>
             <a id="signIn" href="/users/new">Sign Up</a>
         </nav>
@@ -25,9 +26,15 @@
                     <li> Cost: <%=product[i].price; %> Gold Coins </li>
                     <li> In Stock: <%=product[i].qty; %> </li>
                     <% if(product[i].qty > 0){ %>
-                        <form action="/gear/<%=product[i].id%>/buy?_method=PUT" method="POST">
-                            <input id="buy" type="submit" value="buy" />
+
+                        <form action="/gear/<%=product[i].id%>/addCart?_method=PUT" method="POST">
+                            <input id="addCart" type="submit" value="addCart" />
                         </form>
+
+                        <!-- <form action="/gear/ /buy?_method=PUT" method="POST">
+                            <input id="buy" type="submit" value="buy" />
+                        </form> -->
+
                    <% } else { %>
                     <p>Out of Stock</p>
                     <% } %>

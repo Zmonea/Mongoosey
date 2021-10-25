@@ -10,7 +10,7 @@
     <body>
         <h1>Have you found everything that you need?</h1>
         <nav>
-            <a id="create" href="/gear/new">Sell a New Item</a>
+            <a id="create" href="/gear">Back to store</a>
             <a id="logIn" href="/sessions/new">Log In</a>
             <a id="signIn" href="/users/new">Sign Up</a>
         </nav>
@@ -39,7 +39,7 @@
 
                     <div class="showFlexRow">
                     <a id ="edit" href="/gear/<%=product[i]._id%>/edit">Edit Item</a>
-                    <form action="/gear/<%=product[i]._id%>?_method=DELETE" method="POST">
+                    <form action="/cart/<%=product[i]._id%>?_method=DELETE" method="POST">
                         <input id="delete"type="submit" value="DELETE" />
                     </form>
                     </div>
