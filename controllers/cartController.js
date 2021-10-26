@@ -1,7 +1,8 @@
 const express = require('express')
 const conGear = express.Router()
 const Cart = require(`../models/cart.js`)
-const Gear = require('../models/gear.js')
+const Gear = require('../models/gear.js');
+const User = require('../models/users.js');
 
 
 
@@ -27,28 +28,36 @@ conGear.post('/cart', (req, res)=>{
 
 
 conGear.put('/gear/:id/addCart', (req, res)=>{
-    
+     
 
     Gear.findByIdAndUpdate(req.params.id, {$inc: {qty:-1}}, {new:true}, (err, updatedModel)=>{
             
         
+
+            let updateCart = req.session.currentUser.cart.push(updatedModel.id)
+
+            console.log(req.session.currentUser.cart);
+        // Cart.create(req.body, (error, products) => {
+        //     updatedModel.push(products)
+            
+             User.findByIdAndUpdate(req.session.currentUser.id,{$push:{cart:updatedModel.id}},{$push:{cart:updatedModel.name}},(err, updatedUser) =>{
+                Cart.create(req.body, (error, products) => {
+                    
+                    res.redirect(`/gear`);
+        
+                })
+                
+            })
+            
+       
     });
-    // Cart.post(addedProduct, (error, data) => {
-        
-    // });
-    let addedProduct = Gear.findByIdAndUpdate(req.params.id, {new:true}, (err, updatedModel)=>{
-        
 
-        
-    });
+   
 
-    Cart.create(addedProduct, (error, products) => {
-
-        
-    })
+    
 
 
-    res.redirect(`/gear`);
+    
 });
 
 // conGear.post('/gear/:id/add', (req, res)=>{

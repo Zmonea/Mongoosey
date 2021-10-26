@@ -33,7 +33,7 @@ sessions.post('/', (req, res) => {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
        
         req.session.currentUser = foundUser
-      
+        
         res.redirect(`/sessions/user/${req.session.currentUser.username}`);
       } else {
      

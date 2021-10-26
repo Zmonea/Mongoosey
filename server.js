@@ -106,7 +106,8 @@ app.get('/gear', (req, res)=>{
     Gear.find({}, (error, products)=>{
         res.render('index.ejs', {
             product: products,
-            index: req.params
+            index: req.params,
+            currentUser: req.session.currentUser
         });
     });
 });

@@ -6,7 +6,9 @@ const gearSchema = new mongoose.Schema({
     img: String,
     price:{ type:Number , minimum: 0},
     qty: { type:Number , minimum: 0},
-    isInCart: {type:Boolean, default: false}
+    isInCart: {type:Boolean, default: false},
+    cartQty: Number,
+    owner: String
 },
 { timestamps: true }
 );

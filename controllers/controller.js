@@ -13,6 +13,7 @@ users.post('/', (req, res) => {
 
     User.create(req.body, (err, createdUser) => {
       console.log('user was created ', createdUser)
+      createdUser.gold = 300;
       res.redirect('/sessions/new')
     })
 })
