@@ -32,7 +32,7 @@ ul{
     color: white;
  }
  h1{
-    background-color: rgba(85, 85, 85, 0.445);
+    background-color: rgba(66, 66, 66, 0.445);
     padding: 10px;
     color: white;
     font-weight: 400;
@@ -170,4 +170,11 @@ form{
  #index{
     background-color: rgb(223, 142, 50);
     
+ }
+ .totalPrice{
+   background-color: rgba(0, 0, 0, 0.842);
+   font-size: 4em;
+   width: 70%;
+   display: flex;
+   justify-content: center;
  }

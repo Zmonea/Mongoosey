@@ -27,8 +27,8 @@
         <nav class="showFlexRow">
            
 
-            <a href="/gear">Back to Log Index</a>
-            <a href="/gear/<%=product._id%>/edit">Edit Item</a>
+            <a id="index" href="/gear">Back to Log Index</a>
+            <a id="edit"href="/gear/<%=product._id%>/edit">Edit Item</a>
             <form  action="/gear/<%=product._id%>?_method=DELETE" method="POST">
                 <input id="delete"type="submit" value="DELETE" />
             </form>
