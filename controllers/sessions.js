@@ -11,6 +11,7 @@ sessions.get('/user/:username', (req, res) => {
 });
 
 
+
 sessions.get('/new', (req, res) => {
   
   res.render('sessions/new.ejs', { currentUser: req.session.currentUser })
@@ -33,7 +34,7 @@ sessions.post('/', (req, res) => {
        
         req.session.currentUser = foundUser
       
-        res.redirect('/gear')
+        res.redirect(`/sessions/user/${req.session.currentUser.username}`);
       } else {
      
         res.send('<a href="/"> password does not match </a>')
