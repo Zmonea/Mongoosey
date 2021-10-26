@@ -13,8 +13,8 @@
         <img class='productpicIndex' src=<%=product.img; %> />
     <h4>  <%=product.description %> </h4>
     <% if(product.qty > 0){ %>
-        <h4><%=product.qty %>: In Stock</h4>
-        <h3>Yours now for: $ <%=product.price %></h3>
+        <h4>In Stock: <%=product.qty %> </h4>
+        <h3>Yours now for:  <%=product.price %> Gold</h3>
         <form action="/gear/<%=product.id%>/buy?_method=PUT" method="POST">
             <input id="buy" type="submit" value="buy" />
         </form>

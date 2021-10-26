@@ -162,14 +162,18 @@ app.get('/gear/:id/edit', (req, res)=>{
 app.get('/seed', (req, res) => {
     
     Gear.deleteMany({}, ()=> {});
+    Cart.deleteMany({}, ()=> {});
     
     Gear.create(prdseed, (error, data) => {
       
     });
+
     Cart.create(prdseed, (error, data) => {
         
       });
-      redirect('/gear'); 
+
+    res.redirect('/gear'); 
+      
   })
 
 // Buy goods

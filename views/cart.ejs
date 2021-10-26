@@ -38,7 +38,7 @@
                     <% } %>
 
                     <div class="showFlexRow">
-                    <a id ="edit" href="/gear/<%=product[i]._id%>/edit">Edit Item</a>
+                    <!-- <a id ="edit" href="/gear/<%=product[i]._id%>/edit">Edit Item</a> -->
                     <form action="/cart/<%=product[i]._id%>?_method=DELETE" method="POST">
                         <input id="delete"type="submit" value="DELETE" />
                     </form>
@@ -48,7 +48,7 @@
                 
             <% } %>
             <div class="totalPrice">
-                <h4 >Your Total: <%= total %> </h4>
+                <h4 >Your Total: <%= total %> Gold </h4>
             </div>
         
         </ul>
