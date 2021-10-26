@@ -8,9 +8,12 @@ const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
 const session = require('express-session')
+const router = express.Router()
 
+const cartController = require('./controllers/cartController.js');
 const sessionsController = require('./controllers/sessions.js')
 const userController = require('./controllers/controller.js')
+
 
 const Gear = require('./models/gear.js');
 const prdseed = require('./models/gearseed.js')
@@ -20,11 +23,10 @@ const Cart = require('./models/cart.js')
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
+app.use(express.json());
 
 
 
-app.use('/sessions', sessionsController)
-app.use('/users', userController)
 
 app.use(
     session({
@@ -33,6 +35,11 @@ app.use(
       saveUninitialized: false 
     })
 )
+app.use('/', cartController)
+app.use('/sessions', sessionsController)
+app.use('/users', userController)
+
+
 
 app.get('/gear/new', (req, res)=>{
     res.render('new.ejs');
@@ -66,14 +73,14 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 //___________________
 
 //use public folder for static assets
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // populates req.body with parsed info from forms - if no data from forms will return an empty object {}
-app.use(express.urlencoded({ extended: false }));// extended: false - does not allow nested objects in query strings
-app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
+// app.use(express.urlencoded({ extended: false }));// extended: false - does not allow nested objects in query strings
+// returns middleware that only parses JSON - may or may not need it depending on your project
 
 //use method override
-app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
+// app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 
 //___________________
@@ -116,13 +123,9 @@ app.get('/gear/:id', (req, res)=>{
 });
 
 //edit
-app.get('/gear/:id/edit', (req, res)=>{
-    Gear.findById(req.params.id, (err, products)=>{
-        res.render('edit.ejs', {
-            product: products
-        });
-    });
-});
+
+
+
 
 app.put('/gear/:id', (req, res)=>{
   
@@ -132,25 +135,15 @@ app.put('/gear/:id', (req, res)=>{
     });
 })
 
-//cart
-app.get('/cart', (req, res)=>{
-    Cart.find({}, (error, products)=>{
-        res.render('cart.ejs', {
-            product: products,
-            
+app.get('/gear/:id/edit', (req, res)=>{
+    Gear.findById(req.params.id, (err, products)=>{
+        res.render('edit.ejs', {
+            product: products
         });
     });
 });
+//cart
 
-app.post('/cart/', (req, res)=>{
-
-    Cart.create(req.body, (error, products) => {
-
-        res.redirect('/cart');
-        
-    })
-    
-});
 
 // app.put('/cart/buy', (req, res)=>{
     
@@ -162,11 +155,7 @@ app.post('/cart/', (req, res)=>{
         
 //     });
 // })
-app.delete('/cart/:id', (req, res)=>{
-    Cart.findByIdAndRemove(req.params.id, (err, data)=>{
-        res.redirect('/cart');
-    });
-});
+
 
 //seed
 app.get('/seed', (req, res) => {
@@ -194,29 +183,10 @@ app.put('/gear/:id/buy', (req, res)=>{
     });
 });
 
-  app.put('/gear/:id/addCart', (req, res)=>{
-    
-    
 
-    Gear.findByIdAndUpdate(req.params.id, {$inc: {qty:-1}}, {new:true}, (err, updatedModel)=>{
-        
-        console.log(updatedModel);
-
-        Cart.create(updatedModel, (error, data) => {
-        
-        });
-        
-    });
-
-    
-
-    
+// app.post('/addCart', cartController.addToCart);
 
   
-
-    res.redirect(`/gear`);
-});
-
 
   app.delete('/gear/:id', (req, res)=>{
     Gear.findByIdAndRemove(req.params.id, (err, data)=>{
